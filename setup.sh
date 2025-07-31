@@ -2,12 +2,13 @@
 
 # 1. Instalar dependências do sistema
 sudo apt update
-sudo apt install -y build-essential libncurses-dev python3-pip
+sudo apt install -y build-essential libncurses-dev python3-pip libncurses5-dev libgtk2.0-dev libx11-dev libxt-dev
 
 # 2. Instalar Vim (versão mais recente)
 wget https://github.com/vim/vim/archive/refs/tags/v9.1.1457.tar.gz -O vim.tar.gz
 tar -xzf vim.tar.gz
 cd vim-*
+./configure --with-x
 make -j$(nproc)
 sudo make install
 cd ..
@@ -187,6 +188,32 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Configurações básicas para o vim 
+" como numeração das linhas
+" identar com espaços
+" uso do mouse
+" e copiar direto para a area de transferencia
+
+set nocompatible
+set nu
+syntax on
+set encoding=utf-8
+set showcmd
+filetype plugin indent on
+
+set tabstop=2 shiftwidth=2
+set expandtab
+set backspace=indent,eol,start
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set mouse=a
+set clipboard=unnamedplus
+
 EOF
 
 # 6. Instalar plugins
@@ -215,6 +242,9 @@ cat > ~/.vim/coc-settings.json << 'EOF'
       }
     }
   },
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.6/clangd_15.0.6/bin/clangd"
+  "clangd.path": "/usr/bin/clangd"
 }
 EOF
+
+# 10. Instalar o compiledb
+pip install compiledb

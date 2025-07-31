@@ -1,5 +1,9 @@
 # Configuração do Vim para Autocompletar em C com CoC
 
+## CAMINHO FÁCIL -> execute o chmod +x ./setup.sh e depois ./setup.sh, depois instale manualmente compiledb conforme orientado ao final desse arquivo
+
+## Esse setup ainda é está sendo melhorado, se falhar, tente avaliar manualmente
+
 >  **Requisitos**  
 - Vim >= **9.0.0438**  
 - Node.js >= **16.18.0**  
@@ -14,12 +18,16 @@ vim --version
 
 ##  Instalação
 
-### 1. Instalar o Vim
+### 1. Compilar e instalar o Vim
 
 ```bash
+sudo apt update
+sudo apt install -y build-essential libncurses-dev python3-pip libncurses5-dev libgtk2.0-dev libx11-dev libxt-dev
+
 wget https://github.com/vim/vim/archive/refs/tags/v9.1.1457.tar.gz -O vim.tar.gz
 tar --extract --file vim.tar.gz
 cd vim*
+./configure --with-x
 make -j$(nproc)
 sudo make install
 ```
@@ -58,6 +66,7 @@ call plug#end()
 > Em seguida, abra o Vim e execute:  
 > `:PlugInstall`  
 > Confirme com `y` quando solicitado.
+> Va no arquivo de setup.sh copie e cole o conteudo dentro da string EOF para ~/.vimrc
 
 ---
 
@@ -136,3 +145,24 @@ Esse arquivo (`compile_commands.json`) será usado pelo `ccls` e `clangd` para f
 ---
 
  Agora o Vim está configurado para autocomplete em C com suporte a bibliotecas.
+
+
+
+### Outros
+```
+#compilar com suporte a copiar para area de transferencia
+# dependências
+sudo apt install libncurses5-dev libgtk2.0-dev libx11-dev libxt-dev
+./configure --with-x
+#faça os passos restantes ...
+
+# Para atualizar sistemas baseados em debian para que o vim correto fique como editor de texto principal
+sudo update-alternatives --install /usr/bin/vim vim /usr/local/bin/vim 100
+```
+
+
+
+#### TODO
+
+> ADICIONAR desfazer infinito
+> airline
